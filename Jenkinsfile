@@ -6,6 +6,16 @@ pipeline {
 
 		stage("build") {
 
+			when {
+
+				expression {
+
+					env.GIT_BRANCH == 'origin/master'
+
+				}
+
+			}
+
 			steps {
 
 				echo 'building the applicaiton...'
@@ -15,6 +25,16 @@ pipeline {
 		}
 
 		stage("test") {
+
+			when {
+
+				expression {
+
+					env.GIT_BRANCH == 'origin/test' || env.GIT_BRANCH == ''
+
+				}
+
+			}
 
 			steps {
 
@@ -36,27 +56,4 @@ pipeline {
 
 	}
 
-	post {
-
-			always {
-
-				echo 'building..'
-
-			}
-
-			success {
-
-	            echo 'success'
-
-			}
-
-			failure {
-
-	            echo 'failure'
-
-			}
-
-		}
-
-	}
-
+}
