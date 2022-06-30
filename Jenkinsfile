@@ -19,7 +19,7 @@ pipeline {
 			steps {
 
 				echo 'building the applicaiton...'
-
+				echo "deploying version $(params.VERSION)"
 			}
 
 		}
