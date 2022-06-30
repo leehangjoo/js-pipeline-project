@@ -2,11 +2,13 @@ pipeline {
 
 	agent any
 
-	environment {
+	parameters {
 
-		NEW_VERSION = '1.0.0'
+		string(name: 'VERSION', defaultValue: '', description: 'deployment version')
 
-		ADMIN_CREDENTIALS = credentials('admin_user_credentials')
+		choice(name: 'VERSION', choices: ['1.1.0','1.2.0','1.3.0'], description: '')
+
+		booleanParam(name: 'executeTests', defaultValue: true, description: '')
 
 	}
 
@@ -17,8 +19,6 @@ pipeline {
 			steps {
 
 				echo 'building the applicaiton...'
-
-				echo "building version ${NEW_VERSION}"
 
 			}
 
@@ -39,10 +39,6 @@ pipeline {
 			steps {
 
 				echo 'deploying the applicaiton...'
-
-				echo "deploying with ${ADMIN_CREDENTIALS}"
-
-				sh 'printf ${ADMIN_CREDENTIALS}'
 
 			}
 
